@@ -25,9 +25,9 @@ type ServerCreateBody struct {
 	Recipe    string                `json:"recipe,omitempty"`
 	Keypairs  []string              `json:"keypairs,omitempty"`
 	Flavor    ServerFlavorBody      `json:"flavor"`
-	Storages  []ServerStorageBody   `json:"storages"`
+	Storages  []ServerStorageBody   `json:"storages,omitempty"`
 	Licenses  []ServerLicenseBody   `json:"licenses,omitempty"`
-	Addresses []ServerAddressesBody `json:"addresses"`
+	Addresses []ServerAddressesBody `json:"addresses,omitempty"`
 }
 
 type ServerAddressesBody struct {

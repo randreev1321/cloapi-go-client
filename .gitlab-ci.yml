@@ -8,5 +8,6 @@ test:
   script:
     - go fmt $(go list ./... | grep -v /vendor/)
     - go vet $(go list ./... | grep -v /vendor/)
-    - go test -race -cover $(go list ./... | grep -v /vendor/)
-  coverage: '/^coverage: (\d+.\d+)% of statements$/'
+    - go test -race -v -cover -coverprofile=profile.cov $(go list ./... | grep -v /vendor/)
+    - go tool cover -func profile.cov
+  coverage:  '/\(statements\)(?:\s+)?(\d+(?:\.\d+)?%)/'

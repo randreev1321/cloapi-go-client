@@ -1,9 +1,5 @@
 # CLO Golang library
 
-![pipeline status](https://gitlab.hoztnode.net/rnd/cloru/cloapi-go-client/badges/main/pipeline.svg)
-![coverage report](https://gitlab.hoztnode.net/rnd/cloru/cloapi-go-client/badges/main/coverage.svg)
-![Latest Release](https://gitlab.hoztnode.net/rnd/cloru/cloapi-go-client/-/badges/release.svg)
-
 cloapi-go-lib is the official CLO API library for the Go programming language.
 
 ## Getting started

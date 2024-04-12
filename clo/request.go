@@ -29,12 +29,6 @@ type FilterableRequest interface {
 	FilterBy(ff FilteringField)
 }
 
-type PaginatedRequest interface {
-	RequestInt
-	OrderBy(of string)
-	FilterBy(ff FilteringField)
-}
-
 type Request struct {
 	retry        int
 	retryTimeout time.Duration

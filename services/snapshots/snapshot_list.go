@@ -16,8 +16,8 @@ type SnapshotListRequest struct {
 	ProjectID string
 }
 
-func (r *SnapshotListRequest) Do(ctx context.Context, cli *clo.ApiClient) (*SnapshotDetailResponse, error) {
-	resp := &SnapshotDetailResponse{}
+func (r *SnapshotListRequest) Do(ctx context.Context, cli *clo.ApiClient) (*SnapshotListResponse, error) {
+	resp := &SnapshotListResponse{}
 	return resp, cli.DoRequest(ctx, r, resp)
 }
 

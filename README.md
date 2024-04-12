@@ -1,5 +1,9 @@
 # CLO Golang library
 
+![pipeline status](https://gitlab.hoztnode.net/rnd/cloru/cloapi-go-client/badges/main/pipeline.svg)
+![coverage report](https://gitlab.hoztnode.net/rnd/cloru/cloapi-go-client/badges/main/coverage.svg)
+![Latest Release](https://gitlab.hoztnode.net/rnd/cloru/cloapi-go-client/-/badges/release.svg)
+
 cloapi-go-lib is the official CLO API library for the Go programming language.
 
 ## Getting started
@@ -23,13 +27,13 @@ go get -u github.com/clo-ru/cloapi-go-client
 To get a specific release version of the SDK use @<tag> in your go get command.
 
 ```
-go get -u github.com/clo-ru/cloapi-go-client@v1.0.00
+go get -u github.com/clo-ru/cloapi-go-client/v2@v2.0.0
 ```
 
 To get the latest SDK repository change use @latest.
 
 ```
-go get -u github.com/clo-ru/cloapi-go-client@latest
+go get -u github.com/clo-ru/cloapi-go-client/v2@latest
 ```
 
 ## Examples
@@ -70,28 +74,19 @@ func initConfig() clo.Config {
 
 //createServer make a POST http request to the CLO API to create a new server.
 //it will retry 2 times if the response's status code will be not one of: 200, 201, 202 or 204.
-func createServer(cli *clo.ApiClient) (servers.ServerCreateResponse, error) {
-	req := servers.ServerCreateRequest{
-		ProjectID: projectID, //id of the user's project
-		Body: servers.ServerCreateBody{
-			Name:  "my_server",
-			Image: "debian-9",
-			Flavor: servers.ServerFlavorBody{
-				Ram:   12,
-				Vcpus: 2,
-			},
-			Storages: []servers.ServerStorageBody{
-				{
-					Size:        20,
-					Bootable:    true,
-					StorageType: "VOLUME",
-				},
-			},
-		},
-	}
-	req.WithLog(initLogger())
-	req.WithRetry(2, 0)
-	return req.Make(context.Background(), cli)
+func createServer(cli *clo.ApiClient) (*clo.ResponseCreated, error) {
+  req := servers.ServerCreateRequest{
+    ProjectID: projectID, //id of the user's project
+    Body: servers.ServerCreateBody{
+      Name:     "my_server",
+      Image:    "debian-9",
+      Flavor:   servers.ServerFlavorBody{Ram: 12, Vcpus: 2},
+      Storages: []servers.ServerStorageBody{{Size: 20, Bootable: true, StorageType: "volume"}},
+    },
+  }
+  req.WithLog(initLogger())
+  req.WithRetry(2, 0)
+  return req.Do(context.Background(), cli)
 }
 
 func main() {
@@ -122,8 +117,7 @@ According to the [documentation](https://clo.ru/api/) some requests don't return
 logic.  
 You could tune the request's parameters before the actual make:
 
-* Use `req.WithRetry(int, time.Duration)` to retry the request if the response's status code not one of:
-  200, 201, 202 or 204.
+* Use `req.WithRetry(int, time.Duration)` to retry the request if the response's ends with error or return code >= 500.
 * Use `req.WithLogger(clo.Logger)` to pass the logger to handle the request errors.
 * Use `req.WithQueryParams(map[string][]string)` to add query parameters to the request.
 * Use `req.WithHeaders(map[string][]string)` to add headers to the request.
@@ -158,31 +152,23 @@ Paginators are not thread-safety.
 ```go
 package main
 
-func snapListPagination(l int) (snapList []SnapshotListResponse, e error) {
+func snapListPagination(l int) (e error) {
 	cli, e := NewDefaultClient("authKey", "baseUrl")
 	if e != nil {
 		return
 	}
-PGOptions:
-	SnapshotPaginatorOptions{
-		Limit:  3,
-		Offset: 3,
-	},
-		pg, e := NewSnapshotListPaginator(&cli, SnapshotListRequests{}, SnapshotPaginatorOptions{
-		Limit: 3, Offset: 3,
-	})
-	if e != nil {
-		return
-	}
-	for i := 0; i < l; i++ {
-		resp, e := pg.NextPage(context.Background())
-		if e != nil {
-			return
+	req := &SnapshotListRequest{}
+	paginator := clo.NewPaginator(cli, req, 3, 3)
+	response := &SnapshotListResponse{}
+	for !paginator.LastPage() {
+		if err := paginator.NextPage(context.Background(), response); err != nil {
+			return err
 		}
-		snapList = append(snapList, resp)
+		fmt.Print(response)
 	}
 	return
 }
+
 ```
 
 #### Filtering & ordering
@@ -205,9 +191,8 @@ Filtering/ordering methods support chaining.
 
 ```go
 package main
-
-func filtering(req ListRequest) {
-	ff := []FilteringField{
+func filtering(req clo.FilterableRequest) {
+	ff := []clo.FilteringField{
 		{
 			FieldName: "field_gt",
 			Condition: "gt",
@@ -228,8 +213,8 @@ func filtering(req ListRequest) {
 	for _, f := range ff {
 		req.FilterBy(f)
 	}
-	for _, f := range of {
-		req.OrderBy(of)
+	for _, or := range of {
+		req.OrderBy(or)
 	}
 }
 ```

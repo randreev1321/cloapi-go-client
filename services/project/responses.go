@@ -1,6 +1,6 @@
 package project
 
-import "github.com/clo-ru/cloapi-go-client/clo"
+import "github.com/clo-ru/cloapi-go-client/v2/clo"
 
 type Project struct {
 	ID             string `json:"id"`

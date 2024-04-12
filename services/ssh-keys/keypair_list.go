@@ -3,7 +3,7 @@ package sshkeys
 import (
 	"context"
 	"fmt"
-	"github.com/clo-ru/cloapi-go-client/clo"
+	"github.com/clo-ru/cloapi-go-client/v2/clo"
 	"net/http"
 )
 

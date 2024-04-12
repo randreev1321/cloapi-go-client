@@ -1,6 +1,6 @@
 package snapshots
 
-import "github.com/clo-ru/cloapi-go-client/clo"
+import "github.com/clo-ru/cloapi-go-client/v2/clo"
 
 type Snapshot struct {
 	ID           string   `json:"id"`

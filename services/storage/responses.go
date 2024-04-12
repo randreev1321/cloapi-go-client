@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"github.com/clo-ru/cloapi-go-client/clo"
+	"github.com/clo-ru/cloapi-go-client/v2/clo"
 )
 
 type S3Key struct {

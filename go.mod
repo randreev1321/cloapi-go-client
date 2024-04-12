@@ -1,4 +1,4 @@
-module github.com/clo-ru/cloapi-go-client
+module github.com/clo-ru/cloapi-go-client/v2
 
 go 1.21
 

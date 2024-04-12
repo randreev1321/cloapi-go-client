@@ -9,13 +9,13 @@ cloapi-go-lib is the official CLO API library for the Go programming language.
 Use go get to retrieve the library to add it to your GOPATH workspace, or project's Go module dependencies.
 
 ```
-go get github.com/clo-ru/cloapi-go-client
+go get github.com/clo-ru/cloapi-go-client/v2
 ```
 
 To update the library use go get -u to retrieve the latest version of the library.
 
 ```
-go get -u github.com/clo-ru/cloapi-go-client
+go get -u github.com/clo-ru/cloapi-go-client/v2
 ```
 
 ### Go Modules

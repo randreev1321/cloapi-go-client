@@ -3,8 +3,8 @@ package snapshots
 import (
 	"context"
 	"fmt"
-	"github.com/clo-ru/cloapi-go-client/clo"
-	tools "github.com/clo-ru/cloapi-go-client/clo/request_tools"
+	"github.com/clo-ru/cloapi-go-client/v2/clo"
+	tools "github.com/clo-ru/cloapi-go-client/v2/clo/request_tools"
 	"net/http"
 )
 

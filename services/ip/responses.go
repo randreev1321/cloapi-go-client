@@ -1,6 +1,6 @@
 package ip
 
-import "github.com/clo-ru/cloapi-go-client/clo"
+import "github.com/clo-ru/cloapi-go-client/v2/clo"
 
 type Address struct {
 	ID             string             `json:"id"`

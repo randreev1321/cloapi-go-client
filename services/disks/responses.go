@@ -1,6 +1,6 @@
 package disks
 
-import "github.com/clo-ru/cloapi-go-client/clo"
+import "github.com/clo-ru/cloapi-go-client/v2/clo"
 
 type LocalDisk struct {
 	ID         string          `json:"id"`

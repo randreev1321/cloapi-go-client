@@ -1,6 +1,6 @@
 package sshkeys
 
-import "github.com/clo-ru/cloapi-go-client/clo"
+import "github.com/clo-ru/cloapi-go-client/v2/clo"
 
 type KeyPair struct {
 	ID        string `json:"id"`

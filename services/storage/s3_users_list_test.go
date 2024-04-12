@@ -3,9 +3,9 @@ package storage
 import (
 	"context"
 	"fmt"
-	"github.com/clo-ru/cloapi-go-client/clo"
-	intTesting "github.com/clo-ru/cloapi-go-client/internal/testing"
-	"github.com/clo-ru/cloapi-go-client/internal/testing/mocks"
+	"github.com/clo-ru/cloapi-go-client/v2/clo"
+	intTesting "github.com/clo-ru/cloapi-go-client/v2/internal/testing"
+	"github.com/clo-ru/cloapi-go-client/v2/internal/testing/mocks"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"

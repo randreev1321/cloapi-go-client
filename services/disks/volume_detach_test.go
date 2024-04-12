@@ -2,8 +2,8 @@ package disks
 
 import (
 	"fmt"
-	intTesting "github.com/clo-ru/cloapi-go-client/internal/testing"
-	"github.com/clo-ru/cloapi-go-client/internal/testing/mocks"
+	intTesting "github.com/clo-ru/cloapi-go-client/v2/internal/testing"
+	"github.com/clo-ru/cloapi-go-client/v2/internal/testing/mocks"
 	"net/http"
 	"testing"
 )

@@ -1,6 +1,6 @@
 package recipe
 
-import "github.com/clo-ru/cloapi-go-client/clo"
+import "github.com/clo-ru/cloapi-go-client/v2/clo"
 
 type LicenseRecipe struct {
 	Addon    string `json:"addon"`

@@ -1,6 +1,6 @@
 package load_balancer
 
-import "github.com/clo-ru/cloapi-go-client/clo"
+import "github.com/clo-ru/cloapi-go-client/v2/clo"
 
 type LoadBalancer struct {
 	ID                 string          `json:"id"`

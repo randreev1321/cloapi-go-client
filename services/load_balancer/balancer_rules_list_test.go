@@ -10,8 +10,22 @@ import (
 
 func TestBalancerRulesListRequest_Build(t *testing.T) {
 	ID := "id"
-	req := &BalancerRulesListRequest{ProjectID: ID}
-	intTesting.BuildTest(req, http.MethodGet, fmt.Sprintf(balancerRulesListEndpoint, mocks.MockUrl, ID), nil, t)
+	tests := []struct {
+		req *BalancerRulesListRequest
+		url string
+	}{
+		{
+			req: &BalancerRulesListRequest{ProjectID: ID},
+			url: fmt.Sprintf(projectRulesListEndpoint, mocks.MockUrl, ID),
+		},
+		{
+			req: &BalancerRulesListRequest{BalancerID: ID},
+			url: fmt.Sprintf(balancerRulesListEndpoint, mocks.MockUrl, ID),
+		},
+	}
+	for _, tt := range tests {
+		intTesting.BuildTest(tt.req, http.MethodGet, tt.url, nil, t)
+	}
 }
 
 func TestBalancerRulesListRequest_Make(t *testing.T) {

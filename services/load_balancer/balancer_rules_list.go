@@ -3,17 +3,20 @@ package load_balancer
 import (
 	"context"
 	"fmt"
-	"github.com/clo-ru/cloapi-go-client/v2/clo"
 	"net/http"
+
+	"github.com/clo-ru/cloapi-go-client/v2/clo"
 )
 
 const (
-	balancerRulesListEndpoint = "%s/v2/projects/%s/loadbalancers/rules"
+	projectRulesListEndpoint  = "%s/v2/projects/%s/loadbalancers/rules"
+	balancerRulesListEndpoint = "%s/v2/loadbalancers/%s/rules"
 )
 
 type BalancerRulesListRequest struct {
 	clo.Request
-	ProjectID string
+	ProjectID  string
+	BalancerID string
 }
 
 func (r *BalancerRulesListRequest) Do(ctx context.Context, cli *clo.ApiClient) (*BalancerRuleListResponse, error) {
@@ -21,7 +24,10 @@ func (r *BalancerRulesListRequest) Do(ctx context.Context, cli *clo.ApiClient) (
 	return resp, cli.DoRequest(ctx, r, resp)
 }
 func (r *BalancerRulesListRequest) Build(ctx context.Context, baseUrl string, authToken string) (*http.Request, error) {
-	return r.BuildRaw(ctx, http.MethodGet, fmt.Sprintf(balancerRulesListEndpoint, baseUrl, r.ProjectID), authToken, nil)
+	if r.BalancerID != "" {
+		return r.BuildRaw(ctx, http.MethodGet, fmt.Sprintf(balancerRulesListEndpoint, baseUrl, r.BalancerID), authToken, nil)
+	}
+	return r.BuildRaw(ctx, http.MethodGet, fmt.Sprintf(projectRulesListEndpoint, baseUrl, r.ProjectID), authToken, nil)
 }
 func (r *BalancerRulesListRequest) OrderBy(of string) {
 	r.WithQueryParams(clo.QueryParam{"order": {of}})

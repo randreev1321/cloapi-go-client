@@ -39,4 +39,5 @@ type BalancerRule struct {
 type LoadBalancerDetailResponse = clo.Response[LoadBalancer]
 type LoadBalancerListResponse = clo.ListResponse[LoadBalancer]
 
+type BalancerRuleDetailResponse = clo.Response[BalancerRule]
 type BalancerRuleListResponse = clo.ListResponse[BalancerRule]

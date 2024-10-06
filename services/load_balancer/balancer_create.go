@@ -2,6 +2,7 @@ package load_balancer
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/clo-ru/cloapi-go-client/v2/clo"
 	tools "github.com/clo-ru/cloapi-go-client/v2/clo/request_tools"
@@ -46,6 +47,15 @@ type BalancerRuleBody struct {
 	AddressId            string `json:"address_id"`
 	ExternalProtocolPort int    `json:"external_protocol_port"`
 	InternalProtocolPort int    `json:"internal_protocol_port"`
+}
+
+type BalancerRuleBodies []BalancerRuleBody
+
+func (b BalancerRuleBodies) MarshalJSON() ([]byte, error) {
+	if b == nil {
+		return []byte("[]"), nil
+	}
+	return json.Marshal([]BalancerRuleBody(b))
 }
 
 func (r *BalancerCreateRequest) Do(ctx context.Context, cli *clo.ApiClient) (*clo.ResponseCreated, error) {

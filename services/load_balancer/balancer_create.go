@@ -20,12 +20,12 @@ type BalancerCreateRequest struct {
 }
 
 type BalancerCreateBody struct {
-	Name               string              `json:"name"`
-	Algorithm          string              `json:"algorithm"`
-	SessionPersistence bool                `json:"session_persistence"`
-	Address            BalancerBodyAddress `json:"address,omitempty"`
-	HealthMonitor      BalancerBodyMonitor `json:"healthmonitor"`
-	Rules              []BalancerRuleBody  `json:"rules"`
+	Name               string               `json:"name"`
+	Algorithm          string               `json:"algorithm"`
+	SessionPersistence bool                 `json:"session_persistence"`
+	Address            *BalancerBodyAddress `json:"address,omitempty"`
+	HealthMonitor      BalancerBodyMonitor  `json:"healthmonitor"`
+	Rules              []BalancerRuleBody   `json:"rules"`
 }
 
 type BalancerBodyAddress struct {

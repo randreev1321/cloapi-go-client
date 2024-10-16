@@ -25,7 +25,7 @@ type BalancerCreateBody struct {
 	SessionPersistence bool                 `json:"session_persistence"`
 	Address            *BalancerBodyAddress `json:"address,omitempty"`
 	HealthMonitor      BalancerBodyMonitor  `json:"healthmonitor"`
-	Rules              []BalancerRuleBody   `json:"rules"`
+	Rules              BalancerRuleBodies   `json:"rules"`
 }
 
 type BalancerBodyAddress struct {
